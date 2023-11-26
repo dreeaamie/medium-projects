@@ -1,113 +1,111 @@
-.attribution{
-    position: absolute;
-    bottom: 0px;
+const inday=document.querySelector(".day");
+const inmonth=document.querySelector(".month");
+const inyear=document.querySelector(".year");
+const buttonn=document.querySelector(".button");
 
-    }
-@font-face {
-    font-family: 'popins';
-    src: url(assets/fonts/Poppins-BoldItalic.ttf);
-}
-@font-face {
-    font-family: pop;
-    src: url(assets/fonts/Poppins-Bold.ttf);
-}
-    *{
-   
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    }
+const outday=document.querySelector(".DD");
+const outmonth=document.querySelector(".MM");
+const outyear=document.querySelector(".YY");
 
-    body{
-        background: grey;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+const day_small=document.querySelector(".derror");
+const month_small=document.querySelector(".merror");
+const year_small=document.querySelector(".yerror");
 
-    .card{
-        padding:2rem ;
-        background: white;
-        width: 600px;
-        /* height: 500px; */
-        border-radius: 10px;
-        border-bottom-right-radius: 100px;
-    }
+buttonn.addEventListener('click', calculate);
+let isvalid=false;
 
-    .container{
-font-family: pop;
-font-size: 13px;
-display: flex;
-flex-direction: column;
-    }
-
-    /* form{
-        display: flex;
-        flex-direction: column;
-    } */
-    .formcontainer{
-display: flex;
-gap: 2rem; 
-    }
-
-.inputs{
-    display: flex;
-    flex-direction: column;
+inday.addEventListener('input',(e)=>{
+  if(+inday.value>31){
+    day_small.textContent="must be a valid date";
+ isvalid=false;
+ return;
+  }
+else{
+  isvalid=true;
+  day_small.textContent="";
 }
 
-label{
-    color: rgb(66, 66, 66);
+if(+inday.value===0){
+  isvalid=false;
+  day_small.textContent="this field is required";
+isvalid=false;
+return;
 }
-input{
-    width: 5.5rem;
-    height: 2.6rem;
-border-radius: 4px;
-border: 1px solid rgb(151, 150, 150);
-outline: none;
-font-weight: 900;
-font-size: 1.5rem;
-display: flex;
-align-items: center;
-padding: 5px;
+else{
+ day_small.textContent = "";
 }
 
-input:focus{
-    border: 2px solid rgb(196, 75, 196);
-}
-.submit{
-    display: flex;
-    align-items: center;
+});
+
+inmonth.addEventListener('input',(e)=>{
+  if(+inmonth.value>12){
+    month_small.textContent="must be a valid date";
+ isvalid=false;
+ return;
+  }
+else{
+  isvalid=true;
+  month_small.textContent="";
 }
 
-hr{
-    height: 2px;
-    border-width:0;color:rgb(174, 172, 172);background-color:rgb(152, 152, 152);
-    width: 100%;
+if(+inmonth.value===0){
+  isvalid=false;
+  month_small.textContent="this field is required";
+isvalid=false;
+return;
+}
+else{
+  month_small.textContent = "";
+}
+});
+
+inyear.addEventListener('input',(e)=>{
+  if(+inyear.value>2023){
+    year_small.textContent="must be a valid date";
+ isvalid=false;
+ return;
+  }
+else{
+  isvalid=true;
+  year_small.textContent="";
 }
 
-button{
-    background-color: rgb(182, 72, 182);
-    padding: 0.5rem;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
+if(+inyear.value===0){
+  isvalid=false;
+  year_small.textContent="this field is required";
+isvalid=false;
+return;
+}
+else{
+  year_small.textContent = "";
+}
+});
 
-}
 
-.output h1{
-    font-family: popins;
-    font-size: 4rem;
-}
-.output span{
-    color: rgb(184, 65, 184);
-}
-small{
-    color: red;
+function calculate(){
+  if(isvalid){
+    let birthday = `${inmonth.value}/${inday.value}/${inyear.value}`;
+    console.log(birthday);
+    let birthdayObj = new Date(birthday);
+    let ageDiffMill = Date.now() - birthdayObj;
+    let ageDate = new Date(ageDiffMill);
+    let ageYears = ageDate.getUTCFullYear() - 1970;
+    let ageMonth = ageDate.getUTCMonth();
+    let ageDay = ageDate.getUTCDay();
+    // DISPLAYING EVERYTHING
+    outday.textContent = ageDay;
+    outmonth.textContent = ageMonth;
+    outyear.textContent = ageYears;
+  } else{
+    alert("error");
+  }
+
 }
 
 
 
-    @media screen and(max-width:600px) {
-  
-    }
+
+
+
+
+
